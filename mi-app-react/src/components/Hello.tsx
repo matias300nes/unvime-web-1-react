@@ -1,12 +1,18 @@
 import Emoji from "./Emoji";
+import Username from "./Username";
 
-type params = {
-    nombre: string;
-    apellido?: string;
-}
-
-function Hello({ nombre, apellido }: params) {
-    return <div>Hola {nombre} {apellido ?? ""} <Emoji /></div>
+function Hello() {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "10px",
+      }}
+    >
+      Hola <Username /> <Emoji />
+    </div>
+  );
 }
 
 export default Hello;
