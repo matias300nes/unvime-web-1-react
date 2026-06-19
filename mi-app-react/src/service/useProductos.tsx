@@ -23,7 +23,18 @@ async function fetchProductos() {
     }
 }
 
-export default function useProductos() {
+async function fetchProducto(id: number) {
+    try {
+        const response = await fetch(`${API_URL}/productos/${id}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(`Error fetching producto with id ${id}:`, error);
+        return null;
+    }
+}
+
+export function useProductos() {
     const [productos, setProductos] = useState<Producto[]>([]);
     const [status, setStatus] = useState<status>("loading");
 
@@ -51,5 +62,25 @@ export default function useProductos() {
         data: productos,
         status,
         refetch
+    };
+}
+
+export function useProducto(id: number | null) {
+    const [producto, setProducto] = useState<Producto | null>(null);
+    const [status, setStatus] = useState<status>("loading");
+    useEffect(() => {
+        if(id) {
+            fetchProducto(id).then((data) => {
+                setProducto(data.data)
+                setStatus("success");
+            }).catch(() => {
+                setStatus("error");
+            });
+        };
+    }, [id]);
+
+    return {
+        data: producto,
+        status
     };
 }

@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router";
 import { products } from "../../data/mockDashboard";
 import { useMainAreaHeader } from "../../layouts/MainAreaHeaderContext";
-import useProductos from "../../service/useProductos";
+import {useProductos} from "../../service/useProductos";
 
 function ProductThumb({ label }: { label?: string }) {
   return (
